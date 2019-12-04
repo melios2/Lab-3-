@@ -12,7 +12,7 @@ def receving (name, sock):
 				data, addr = sock.recvfrom(1024)
 				#print(data.decode("utf-8"))
 
-				# Begin
+
 				decrypt = ""; k = False
 				for i in data.decode("utf-8"):
 					if i == ":":
@@ -23,7 +23,7 @@ def receving (name, sock):
 					else:
 						decrypt += chr(ord(i)^key)
 				print(decrypt)
-				# End
+
 
 				time.sleep(0.2)
 		except:
@@ -31,7 +31,7 @@ def receving (name, sock):
 host = socket.gethostbyname(socket.gethostname())
 port = 0
 
-server = ("192.168.0.101",9090)
+server = ("192.168.56.1",9070)
 
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 s.bind((host,port))
@@ -50,15 +50,15 @@ while shutdown == False:
 		try:
 			message = input()
 
-			# Begin
+
 			crypt = ""
 			for i in message:
 				crypt += chr(ord(i)^key)
 			message = crypt
-			# End
+
 
 			if message != "":
-				s.sendto(("["+alias + "] :: "+message).encode("utf-8"),server)
+				s.sendto(("["+alias + "] : "+message).encode("utf-8"),server)
 			
 			time.sleep(0.2)
 		except:
